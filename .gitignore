@@ -1,2 +1,2 @@
 venv/
-db.sqlite3
+dogs/db.sqlite3
