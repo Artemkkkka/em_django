@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'pets.apps.PetsConfig'
+    'pets.apps.PetsConfig',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,6 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

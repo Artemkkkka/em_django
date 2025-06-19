@@ -5,6 +5,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.db.models import OuterRef, Subquery, Avg, Count, IntegerField
 from django.shortcuts import get_object_or_404
+from drf_yasg.utils import swagger_auto_schema
 
 from .models import Dog, Breed
 from .serializers import (
@@ -42,6 +43,10 @@ class DogViewSet(viewsets.ViewSet):
         serializer = DogListSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=DogDetailSerializer,
+        responses={201: DogDetailSerializer},
+    )
     def create(self, request):
         """
         Создаёт запись о новой собаке.
@@ -91,6 +96,10 @@ class DogViewSet(viewsets.ViewSet):
         serializer = DogDetailSerializer(dog)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=DogDetailSerializer,
+        responses={200: DogDetailSerializer},
+    )
     def update(self, request, pk=None):
         """
         Обновляет данные о собаке.
@@ -160,9 +169,13 @@ class BreedViewSet(viewsets.ViewSet):
         serializer = BreedListSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=BreedSerializer,
+        responses={201: BreedSerializer}
+    )
     def create(self, request):
         """
-        Создаёт запись о новой пород.
+        Создаёт запись о новой породе.
 
         Args:
             request (rest_framework.request.Request): Входящий HTTP-запрос с данными о породе.
@@ -197,9 +210,13 @@ class BreedViewSet(viewsets.ViewSet):
         serializer = BreedSerializer(breed)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=BreedSerializer,
+        responses={200: BreedSerializer}
+    )
     def update(self, request, pk=None):
         """
-        Update an existing Breed instance.
+        ОБновляет данные о породе.
 
         Args:
             request (rest_framework.request.Request): Входящий HTTP-запрос с обновленными данными.
@@ -220,7 +237,7 @@ class BreedViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         """
-        Delete an existing Breed instance.
+        Удаляет данные о породе.
 
         Args:
             request (rest_framework.request.Request): Входящий HTTP-запрос.
